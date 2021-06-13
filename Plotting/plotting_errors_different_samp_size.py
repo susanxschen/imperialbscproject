@@ -41,14 +41,8 @@ median_log_like_list_300 =[]
 
 for sample_num in sample_sizes:
     
-    loc = f'C:/Users/xious/Documents/Year 3/BSc Project/Quantifying accuracy/single qubit/{sample_num} samples'
+    loc = f'main_folder_location/single qubit/{sample_num} samples'
     
-    
-    # =============================================================================
-    # standard_error_on_average = []
-    # abs_standard_error_on_average = []
-    # log_standard_error_on_average = []
-    # =============================================================================
     
     # below i labels ensemble size, j labels iteration
     for i in ensemble_sizes:
@@ -90,12 +84,6 @@ for sample_num in sample_sizes:
             abs_deviation_list_i.append(abs_mean_deviation_ij)
             log_like_list_i.append(log_like_ij)
             
-            
-    # =============================================================================
-    #         average_rel_deviation_i = np.mean(rel_deviation_list_i)
-    #         average_abs_deviation_i = np.mean(abs_deviation_list_i)
-    #         average_log_i = np.mean(log_like_list_i)
-    # =============================================================================
       
         median_rel_deviation_i = np.median(rel_deviation_list_i) 
         median_abs_deviation_i = np.median(abs_deviation_list_i)
@@ -153,10 +141,7 @@ plt.errorbar(x = ensemble_sizes, y = median_mean_dev_list_200,
              fmt="o-", color="orange", ms = 3, label = "200 samples", linewidth=1)
 plt.errorbar(x = ensemble_sizes, y = median_mean_dev_list_300,
              fmt="o-", color="grey", ms = 3, label = "300 samples", linewidth=1)
-# =============================================================================
-# plt.errorbar(x = ensemble_sizes, y = average_mean_dev_list, yerr = standard_error_on_average,
-#              fmt=".-", color="blue", ms = 7, label = "Average")
-# =============================================================================
+
 plt.xlabel("Ensemble Size")
 plt.ylabel("Log Median Mean Deviation (Relative to 1 std.)")
 plt.yscale("log")
@@ -178,10 +163,7 @@ plt.errorbar(x = ensemble_sizes, y = median_abs_dev_list_200,
 plt.errorbar(x = ensemble_sizes, y = median_abs_dev_list_300,
              fmt="o-", color="grey", ms = 3, label = "300 samples", linewidth=1)
 
-# =============================================================================
-# plt.errorbar(x = ensemble_sizes, y = average_abs_dev_list, yerr = standard_error_on_average,
-#              fmt=".-", color="blue", ms = 7, label = "Average")
-# =============================================================================
+
 plt.xlabel("Ensemble Size")
 plt.ylabel("Log Median Mean Deviation (Absolute)")
 plt.yscale("log")
@@ -190,10 +172,6 @@ plt.title("Median Mean Deviation against Ensemble Size (Absolute)")
 plt.savefig(os.path.join(loc_save, "100 Plot_abs_mean_dev_against_ensemble_size.png"), dpi=200)
 
 plt.figure()
-# =============================================================================
-# plt.errorbar(x = ensemble_sizes, y = average_log_like_list, yerr = log_standard_error_on_average,
-#              fmt="o-", color="green", ms = 7, label = "Average")
-# =============================================================================
 plt.errorbar(x = ensemble_sizes, y = median_log_like_list_10,
              fmt="o-", color="red", ms = 3, label = "10 samples", linewidth=1)
 plt.errorbar(x = ensemble_sizes, y = median_log_like_list_20,
