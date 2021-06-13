@@ -1,3 +1,8 @@
+"""
+this script contains most of the necessary classes and defines test functions used
+in the later scripts for 1D function analysis 
+"""
+
 import numpy as np
 import tensorflow as tf
 import tensorflow.keras.backend as K

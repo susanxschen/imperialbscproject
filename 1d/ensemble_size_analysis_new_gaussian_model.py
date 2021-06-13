@@ -29,7 +29,7 @@ while n_iterations <= 3:
     for model_num in ensemble_sizes_list:
         print("Iteration ", n_iterations, "- Ensemble Size: ", model_num)
             # log errors to a .txt file
-        #library.error_handling(sys.argv[0][:-3])
+
         
         #disable eager execution (a mode within tensorflow)
         tf.compat.v1.disable_eager_execution()
@@ -79,22 +79,9 @@ while n_iterations <= 3:
         n_hidden_units = 50
         
         # the learning rate for the optimizer
-        lr = 1e-4 # reduced from 1e-3
+        lr = 1e-4 
         
-# =============================================================================
-#         # the seed for numpy.random to use when generating the data
-#         seed = n_iterations
-# =============================================================================
-        
-        # delete the below indexed data point
-        #X = np.delete(X, np.argmax(Y))
-        #Y = np.delete(Y, np.argmax(Y))
-         
-        """
-        # remove within x range
-         X, Y = library.remove_data(X,Y,1.5,2.4)
-        """
-        
+
         #standardise data so it all members lie between -1 and 1 allowing for better performance
         
         xnormalise = library.Normaliser()
@@ -123,8 +110,6 @@ while n_iterations <= 3:
         
             model.compile(loss=library.custom_loss(output_var), optimizer=adam)
         
-            # tf.keras.utils.plot_model(model, os.path.join(model_path, 'model.png'), show_shapes=True)
-        
             return model
         
         
@@ -136,7 +121,6 @@ while n_iterations <= 3:
             hidden_layer = tf.keras.layers.Dense(50, activation='relu', name='hidden_layer0')(inputs)
             hidden_layer = tf.keras.layers.Dense(100, activation='relu', name='hidden_layer1')(hidden_layer)
             hidden_layer = tf.keras.layers.Dense(50, activation='relu', name='hidden_layer2')(hidden_layer)
-    #        hidden_layer = tf.keras.layers.Dense(50, activation='relu', name='hidden_layer3')(hidden_layer)
             output_mu, output_var = library.OutputLayer(name='output')(hidden_layer)
         
             model = tf.keras.Model(inputs=inputs, outputs=output_mu, name=model_name)
@@ -183,7 +167,6 @@ while n_iterations <= 3:
             plt.figure()
             pd.DataFrame(history.history).plot()
             # above plots the history variable (dictionary) that is converted to a pandas dataframe
-            # hist_df = pd.DataFrame(history.history)
             plt.title(f'Model Name: {model_name}-{i + 1}')
             plt.xlabel(f'Epoch (batch size={batch_size})')
             plt.savefig(os.path.join(loss_curves_path, f'{model_name}-{i + 1}'))
