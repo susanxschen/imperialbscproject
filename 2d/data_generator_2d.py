@@ -13,7 +13,7 @@ import library_2d
 import os
 
 
-location = 'main_folder_location/0315data'
+location = 'main_folder_location'
 
 # generating multiple sets of data, each set uses different random seeds for noise
 n_iterations = 1
