@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 this script contains most of the necessary classes and defines test functions used
 in the later scripts for 2D function analysis 
@@ -293,8 +292,7 @@ def model_pathways_make_directories_regular(folder, ensemble_size, toymodel, mod
         data_path = os.path.join(data_path, 'binomial')
     else:
         data_path = os.path.join(data_path, 'noiseless')
-
-#    results_path = os.path.join(os.pardir, f"{'results'}-{model_name}")
+        
     if folder is None: 
         results_path = os.path.join(os.pardir, "results")
     else: 
@@ -304,7 +302,6 @@ def model_pathways_make_directories_regular(folder, ensemble_size, toymodel, mod
         except FileExistsError as e:
             print(e)
         results_path = os.path.join(results_path_1, "results")
-  #  results_path = os.path.join(os.pardir, "results")
     
     model_path = os.path.join(results_path, f'{model_name}-{n_samples}{noise_str}')
 
@@ -411,10 +408,7 @@ def data_pathways_make_directories_regular(folder, toymodel,noise):
     :param noise: the noise information
     :return: null
     '''
-  #  loc = "main_folder_location"
-    
-  # changed the model pathways, the following code should work with regular_data modifications
-#    data_path = os.path.join(os.pardir, "data")
+
     if folder is None: 
         data_path = os.path.join(os.pardir, "data")
     else: 
