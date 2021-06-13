@@ -1,6 +1,7 @@
 
 """
 regular data 2d
+generate data for 2d landscapes
 """
 import numpy as np
 import sys
@@ -13,25 +14,24 @@ import os
 
 location = 'C:/Users/Zhiyi/Desktop/year_3_project/0315data'
 
+# generating multiple sets of data, each set uses different random seeds for noise
 n_iterations = 1
 while n_iterations <= 3:
     
 
     loc = os.path.join(location, f"repetition {n_iterations}/")
     #shutil.rmtree(location, ignore_errors = True)
-    
     #os.mkdir(location)
     
 
     def main():
         #errors are saved to a .txt file
-   #     library.error_handling(sys.argv[0][:-3])
-        
         #save command line arguments to variables
         args = sys.argv
         
         print('these are the args: ',args)
-        
+     
+        # input parameters
         try:
             tm_type = args[1]
             n_samples = int(args[2])
@@ -61,11 +61,7 @@ while n_iterations <= 3:
             x, y, z = tm.qubit(noise)
             
             # z is of shape (n_samples, n_samples), a matrix
-            
-# =============================================================================
-#             print("z is",z)
-#             print("shape of z ", np.shape(z))
-# =============================================================================
+
   
         else:
             raise Exception('Unrecognised toy model.')

@@ -1,5 +1,6 @@
 """
-2d Landscape 
+defines the 2d landscape F, variables theta_1 and theta_2
+
 """
 import sys
 sys.path.append('../')
@@ -7,9 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import library
-# =============================================================================
-# from scipy.linalg import expm, sinm, cosm
-# =============================================================================
+
 
 # kets are column vectors, bras are row vectors
 
@@ -38,15 +37,9 @@ def control_landscape(state, theta_1, theta_2):
         """
         expon_i = (np.cos(theta) * np.identity(2)) + (complex(0, 1) * np.sin(theta) * spin_matrix)
         
-# =============================================================================
-#         expon_i = expm(complex(0, 1)*theta*spin_matrix) also works 
-# =============================================================================
         
         return expon_i
 
-# =============================================================================
-#     expon_i = lambda theta, matrix: (np.cos(theta) * np.identity(2)) + (complex(0, 1) * np.sin(theta) * matrix)
-# =============================================================================
     
     spin_matrix_x = np.array([[0, 1],
                               [1, 0]])
@@ -74,13 +67,6 @@ b = 1/np.sqrt(2)
 
 psi_state = state(a, b)
 
-# =============================================================================
-# theta_1 = 0.5
-# theta_2 = 0
-#     
-# F = control_landscape(psi_state, theta_1, theta_2)
-# print("F(theta_1, theta_2):", F)
-# =============================================================================
 
 # plotting the landscape of the qubit state
 
