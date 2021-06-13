@@ -180,12 +180,7 @@ while n_iterations <= 3:
             plt.xlabel('Epoch')
             plt.legend(['training', 'validation'], loc='upper left')
             plt.show()
-            
-# =============================================================================
-#             if validation loss is greater than training loss then model is overfitting
-#             if validation loss is less than training loss then model is underfitting
-# =============================================================================
-        
+              
             model.save(os.path.join(model_path, f'{model_name}-{i + 1}.h5'))
             del model
         
