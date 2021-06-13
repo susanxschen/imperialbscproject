@@ -1,5 +1,7 @@
 """
-gaussian model for 2d
+gaussian model for 2d functions
+
+this code is written predominantly by kerwin and hughes, and was modified by us for analysis purposes
 """
 import shutil 
 import os
@@ -361,15 +363,6 @@ while n_iterations <= 3:
         plt.ylabel(r'$f(\theta_{2})$', fontsize=20)
         plt.savefig(os.path.join(model_path, f'curves-{n_samples}'), dpi=200)
         plt.legend(fontsize=15)
-        
-
-        
-# =============================================================================
-#         only reason why this is so good is because it has the other points in the plane
-#         as reference, we just don't plot them, so averaging out it's got to 
-#         give a good prediction for a landscape that only varies in one theta, 
-#         for landscapes that vary in both thetas, might not be so good
-# =============================================================================
         
         
         """
