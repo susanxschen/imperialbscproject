@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-library 2d
+this script contains most of the necessary classes and defines test functions used
+in the later scripts for 2D function analysis 
+
+this is written predominantly by kerwin and hughes, and was only minimally modified
 """
 import numpy as np
 import tensorflow as tf
@@ -21,8 +24,7 @@ f_max = 1
 n_samples = 100
 
 state = two_dimensional_function.state(a=1/np.sqrt(2), b=1/np.sqrt(2))
-
-
+# define toy models via lambda functions
 function = lambda theta_1, theta_2: two_dimensional_function.control_landscape(state, theta_1, theta_2)
 
 
@@ -53,12 +55,10 @@ class ToyModels:
         if noise[0] == 'g':
             noise_arr = np.random.normal(float(noise[1]), float(noise[2]), size=(n_samples))
             
-# =============================================================================
-#         elif noise[0] == 'b':
-#             noise_arr_1 = f - np.random.binomial(float(noise[1]), f, theta_1.shape) / float(noise[1])
-#             noise_arr_2 = f - np.random.binomial(float(noise[1]), f, theta_2.shape) / float(noise[1])
-# 
-# =============================================================================
+        elif noise[0] == 'b':
+            noise_arr_1 = f - np.random.binomial(float(noise[1]), f, theta_1.shape) / float(noise[1])
+            noise_arr_2 = f - np.random.binomial(float(noise[1]), f, theta_2.shape) / float(noise[1])
+
         elif noise[0] == 'n':
             return np.zeros((n_samples, n_samples))
 
@@ -86,30 +86,6 @@ class ToyModels:
             f_val.append(f)
             
         
-# =============================================================================
-#         theta_1 = np.linspace(0, 4, num=100)
-#         theta_2 = np.linspace(0, 4, num=100)
-# =============================================================================
-        
-# =============================================================================
-#         print("theta_1", theta_1)
-#         print("theta_2", theta_2)
-# =============================================================================
-# =============================================================================
-#         f_val= []
-#         for i in range(len(theta_2)):
-#             row=[]
-#             for j in range(len(theta_1)):
-#                 f = function(theta_1[j], theta_2[i])
-#                 Noise = self.create_noise(self.n_samples, f, noise)
-#                 f += Noise[j][i]
-#                 row.append(f)
-#             f_val.append(row)
-# =============================================================================
-            
-        #f += self.create_noise(theta_1, theta_2, f, noise)
-        
-
         return theta_1.reshape((-1, 1)), theta_2.reshape((-1,1)), f_val
 
     

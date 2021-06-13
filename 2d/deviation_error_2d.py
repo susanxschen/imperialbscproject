@@ -26,6 +26,8 @@ n_iterations = 1
 while n_iterations <= 1:
     
     models_list = [1]
+    
+    #loading and reshaping data
     for num_models in models_list:
         loc = f"C:/Users/Zhiyi/Desktop/year_3_project/0315data/repetition {n_iterations}/{num_models} models"
         

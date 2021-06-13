@@ -17,6 +17,7 @@ from contextlib import redirect_stdout
 import matplotlib.ticker as tck
 from matplotlib.patches import Patch
 
+# repeats using differents sets of data(with different random seeds for noise)
 
 n_iterations = 1
 while n_iterations <= 3:
@@ -35,7 +36,7 @@ while n_iterations <= 3:
         
         #load command line inputs
         args = sys.argv
-            
+           
         try:
             toymodel = args[1]
             n_samples = int(args[2])
@@ -52,7 +53,6 @@ while n_iterations <= 3:
     
         
         # noise can be none ('n'), Gaussian ('g') or binomial ('b') with appropriate parameters
-        #noise = sys.argv[5:]
         noise_str = library_2d.noise(noise)
         
         #take in range constraints from the library
@@ -146,10 +146,7 @@ while n_iterations <= 3:
             hidden_layer = tf.keras.layers.Dense(100, activation='relu', name='hidden_layer5')(hidden_layer)
             hidden_layer = tf.keras.layers.Dense(100, activation='relu', name='hidden_layer6')(hidden_layer)
             hidden_layer = tf.keras.layers.Dense(50, activation='relu', name='hidden_layer7')(hidden_layer)
-            #hidden_layer = tf.keras.layers.Dense(50, activation='relu', name='hidden_layer8')(hidden_layer)
-            #hidden_layer = tf.keras.layers.Dense(50, activation='relu', name='hidden_layer9')(hidden_layer)
-            #hidden_layer = tf.keras.layers.Dense(50, activation='relu', name='hidden_layer10')(hidden_layer)
-            
+           
             output_mu, output_var = library_2d.OutputLayer(name='output')(hidden_layer)
         
             model = tf.keras.Model(inputs=inputs, outputs=output_mu, name=model_name)
@@ -176,31 +173,13 @@ while n_iterations <= 3:
             
             print("Iteration ", n_iterations, "- Ensemble Size: ", model_num)
             print("Model Number", i+1, "of", n_models)
-# =============================================================================
-#             combined = np.concatenate((X.reshape(-1,1), Y.reshape(-1,1)), axis=1)
-# =============================================================================
+
+
             combined_xy = []
             
             X = np.array(X).reshape(-1,1).tolist()
             Y = np.array(Y).reshape(-1,1).tolist()
             Z = np.array(Z).reshape(-1,1).tolist()
-            
-# =============================================================================
-#             X = [i[0] for i in X]
-#             Y = [i[0] for i in Y]
-#         
-#             
-#             for yj in Y:
-#                 for xi in X:
-#                     # zij is in the form of [xi, yj]
-#                     zij = (xi,yj)
-#                     combined_xy.append(zij)
-#                     
-#             combined_xy = np.array(combined_xy) # shape is (n_samples**2, 2)
-#                     
-#             Z_col_vector = Z.flatten().reshape(-1,1)
-# =============================================================================
-
 
 
             combined_xyz = np.concatenate((X,Y,Z), axis = 1)
@@ -314,7 +293,7 @@ while n_iterations <= 3:
             
 
 
-        
+        #reshape and destadradise the data for plotting
         theta_1 = theta_1.flatten()
         theta_2 = theta_2.flatten()
     
@@ -332,23 +311,7 @@ while n_iterations <= 3:
         
         n_std = 1.96
         
-# =============================================================================
-#         plt.figure()
-#         
-#         plt.plot(theta_not_norm, true_f, linestyle='--', color='black', label='true')
-#         plt.plot(theta_not_norm, predicted_f, linestyle='--', color='red', label='predicted')
-#         plt.plot(X, Y, '*', color='black', label='samples')
-#         plt.fill_between(theta_not_norm.flatten(), predicted_f - (n_std * std), predicted_f + (n_std * std), color='gray',
-#                          alpha=0.5, label=f'{n_std} standard deviations')
-# 
-#         
-#         plt.title(f'{model_name}: {n_samples} examples')
-#         plt.xlabel(r'$\theta$')
-#         plt.ylabel(r'$f(\theta)$')
-#         plt.legend()
-#         
-#         plt.savefig(os.path.join(model_path, f'curves-{n_samples}'))
-# =============================================================================
+
         sns.set_style("whitegrid")
 # =============================================================================
 #         the 3d contour plot
