@@ -10,7 +10,7 @@ sys.path.append('../')
 import os
 import re
 
-loc = 'C:/Users/xious/Documents/Year 3/BSc Project/Quantifying accuracy/leo 5% noise week 4'
+loc = 'main_folder_location'
 # say this contains folders like "# models"
 # within each one we'll have iteration #
 # then the normal data, results folders 
@@ -31,9 +31,6 @@ median_mean_dev_list = []
 median_abs_dev_list = []
 median_log_like_list =[]
 
-# =============================================================================
-# ensemble_10_mean_dev =[]
-# =============================================================================
 
 standard_error_on_average = []
 abs_standard_error_on_average = []
@@ -82,14 +79,6 @@ for i in ensemble_sizes:
         median_rel_deviation_i = np.median(rel_deviation_list_i) 
         median_abs_deviation_i = np.median(abs_deviation_list_i)
         median_log_i = np.median(log_like_list_i)
-        
-# =============================================================================
-#         # this is to plot a histogram test
-#         if i == 10:
-#             ensemble_10_mean_dev.append(rel_deviation_list_i)
-#         else:
-#             pass
-# =============================================================================
         
     # appending mean, abs dev and log onto the main lists
     median_mean_dev_list.append(median_rel_deviation_i)
@@ -154,12 +143,6 @@ plt.title("Log-Likelihood Against Ensemble Size")
 
 plt.savefig(os.path.join(loc, "Plot_log_llhd_against_ensemble_size.png"), dpi=500)
 
-
-# =============================================================================
-# plt.figure()
-# s = np.asarray(ensemble_10_mean_dev[0]).reshape(10,)
-# plt.hist(s, bins=6) # lol it looks nothing like a gaussian which means the model is bad
-# =============================================================================
 
 
 
