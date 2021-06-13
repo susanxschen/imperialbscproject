@@ -2,7 +2,8 @@
 the gaussian model in a while loop - also puts results for different ensemble sizes inside
 repetition folders 
 
-for loop within while loop
+gaussian model includes the ANN model and is predominantly written by kerwin and hughes,
+and only minimally adapted for our purposes
 """
 import os
 import sys
@@ -14,7 +15,7 @@ import pandas as pd
 import tensorflow as tf
 import tensorflow.keras.backend as K
 sys.path.append('../')
-import library
+import library_1d
 from contextlib import redirect_stdout
 
 
@@ -29,7 +30,7 @@ while n_iterations <= 3:
     for model_num in ensemble_sizes_list:
         print("Iteration ", n_iterations, "- Ensemble Size: ", model_num)
             # log errors to a .txt file
-        #library.error_handling(sys.argv[0][:-3])
+
         
         #disable eager execution (a mode within tensorflow)
         tf.compat.v1.disable_eager_execution()
@@ -54,14 +55,14 @@ while n_iterations <= 3:
         
         # noise can be none ('n'), Gaussian ('g') or binomial ('b') with appropriate parameters
         #noise = sys.argv[5:]
-        noise_str = library.noise(noise)
+        noise_str = library_1d.noise(noise)
         
         #take in range constraints from the library
-        theta_min = library.theta_min
-        theta_max = library.theta_max
+        theta_min = library_1d.theta_min
+        theta_max = library_1d.theta_max
         
         # specifying iteration folder as the folder to go look
-        data_path, results_path, model_path, loss_curves_path = library.model_pathways_make_directories_regular(iteration_folder, model_num, toymodel, model_name, n_samples, noise)
+        data_path, results_path, model_path, loss_curves_path = library_1d.model_pathways_make_directories_regular(iteration_folder, model_num, toymodel, model_name, n_samples, noise)
         
         # load the data
         X = np.loadtxt(os.path.join(data_path, f'x-{n_samples}{noise_str}.csv'), dtype=np.float64)
@@ -79,28 +80,15 @@ while n_iterations <= 3:
         n_hidden_units = 50
         
         # the learning rate for the optimizer
-        lr = 1e-4 # reduced from 1e-3
+        lr = 1e-4 
         
-# =============================================================================
-#         # the seed for numpy.random to use when generating the data
-#         seed = n_iterations
-# =============================================================================
-        
-        # delete the below indexed data point
-        #X = np.delete(X, np.argmax(Y))
-        #Y = np.delete(Y, np.argmax(Y))
-         
-        """
-        # remove within x range
-         X, Y = library.remove_data(X,Y,1.5,2.4)
-        """
-        
+
         #standardise data so it all members lie between -1 and 1 allowing for better performance
         
-        xnormalise = library.Normaliser()
+        xnormalise = library_1d.Normaliser()
         X = xnormalise.standardise(X)
         
-        ynormalise = library.Normaliser()
+        ynormalise = library_1d.Normaliser()
         Y = ynormalise.standardise(Y)
         
         
@@ -115,15 +103,13 @@ while n_iterations <= 3:
         
             hidden_layer = tf.keras.layers.Dense(n, activation='relu', name='hidden_layer')(inputs)
         
-            output_mu, output_var = library.OutputLayer(1, name='output')(hidden_layer)
+            output_mu, output_var = library_1d.OutputLayer(1, name='output')(hidden_layer)
         
             model = tf.keras.Model(inputs=inputs, outputs=output_mu, name=model_name)
         
             adam = tf.keras.optimizers.Adam(learning_rate=lr)
         
-            model.compile(loss=library.custom_loss(output_var), optimizer=adam)
-        
-            # tf.keras.utils.plot_model(model, os.path.join(model_path, 'model.png'), show_shapes=True)
+            model.compile(loss=library_1d.custom_loss(output_var), optimizer=adam)
         
             return model
         
@@ -136,13 +122,12 @@ while n_iterations <= 3:
             hidden_layer = tf.keras.layers.Dense(50, activation='relu', name='hidden_layer0')(inputs)
             hidden_layer = tf.keras.layers.Dense(100, activation='relu', name='hidden_layer1')(hidden_layer)
             hidden_layer = tf.keras.layers.Dense(50, activation='relu', name='hidden_layer2')(hidden_layer)
-    #        hidden_layer = tf.keras.layers.Dense(50, activation='relu', name='hidden_layer3')(hidden_layer)
-            output_mu, output_var = library.OutputLayer(name='output')(hidden_layer)
+            output_mu, output_var = library_1d.OutputLayer(name='output')(hidden_layer)
         
             model = tf.keras.Model(inputs=inputs, outputs=output_mu, name=model_name)
             # changed learning rate value to lr instead
             adam = tf.keras.optimizers.Adam(learning_rate=lr)
-            model.compile(loss=library.custom_loss(output_var), optimizer=adam)
+            model.compile(loss=library_1d.custom_loss(output_var), optimizer=adam)
         
             # tf.keras.utils.plot_model(model, os.path.join(model_path, 'model.png'), show_shapes=True)
         
@@ -183,7 +168,6 @@ while n_iterations <= 3:
             plt.figure()
             pd.DataFrame(history.history).plot()
             # above plots the history variable (dictionary) that is converted to a pandas dataframe
-            # hist_df = pd.DataFrame(history.history)
             plt.title(f'Model Name: {model_name}-{i + 1}')
             plt.xlabel(f'Epoch (batch size={batch_size})')
             plt.savefig(os.path.join(loss_curves_path, f'{model_name}-{i + 1}'))
@@ -251,7 +235,7 @@ while n_iterations <= 3:
             # 2. the mu star variance contribution 
             #   (this is mu average contrbution from individual ANNs squared - mu_star**2 )
         
-        true_f = library.single_qubit(theta_not_norm.flatten())
+        true_f = library_1d.single_qubit(theta_not_norm.flatten())
         
         theta = theta.flatten()
         predicted_f = ynormalise.destandardise(mu_star)

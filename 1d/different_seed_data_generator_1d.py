@@ -1,6 +1,8 @@
 """
-regular data in while loop - for the ensembles analysis repititions
-generates new seed data every repetition
+a toy data generator for 1D functions 
+
+this code is predominantly written by kerwin and hughes, modifications were made for our analyses
+
 """
 import numpy as np
 import sys
