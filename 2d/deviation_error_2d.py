@@ -29,7 +29,7 @@ while n_iterations <= 1:
     
     #loading and reshaping data
     for num_models in models_list:
-        loc = f"C:/Users/Zhiyi/Desktop/year_3_project/0315data/repetition {n_iterations}/{num_models} models"
+        loc = f"main_folder_location/repetition {n_iterations}/{num_models} models"
         
         path_true = os.path.join(loc, "true_f.txt")
         path_pred = os.path.join(loc, 'predicted_f.txt')
@@ -94,7 +94,7 @@ while n_iterations <= 1:
 #        plotting contour plot for the deviation for each (theta_1, theta_2) point
 #        - tricontour plotting
 # =============================================================================
-        loc_theta = f"C:/Users/Zhiyi/Desktop/year_3_project/0315data/repetition {n_iterations}/data/"
+        loc_theta = f"main_folder_location/repetition {n_iterations}/data/"
         
         theta_1 = np.loadtxt(loc_theta+"theta_1_values.txt")
         theta_2 = np.loadtxt(loc_theta+"theta_2_values.txt")

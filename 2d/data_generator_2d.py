@@ -12,7 +12,7 @@ import library_2d
 import os
 
 
-location = 'C:/Users/Zhiyi/Desktop/year_3_project/0315data'
+location = 'main_folder_location/0315data'
 
 # generating multiple sets of data, each set uses different random seeds for noise
 n_iterations = 1

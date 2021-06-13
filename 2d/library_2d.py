@@ -411,7 +411,7 @@ def data_pathways_make_directories_regular(folder, toymodel,noise):
     :param noise: the noise information
     :return: null
     '''
-  #  loc = "C:\Users\xious\Documents\Year 3\BSc Project\Quantifying accuracy"
+  #  loc = "main_folder_location"
     
   # changed the model pathways, the following code should work with regular_data modifications
 #    data_path = os.path.join(os.pardir, "data")

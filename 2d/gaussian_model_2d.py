@@ -22,7 +22,7 @@ from matplotlib.patches import Patch
 n_iterations = 1
 while n_iterations <= 3:
     
-    iteration_folder = f'C:/Users/Zhiyi/Desktop/year_3_project/0315data/repetition {n_iterations}/'
+    iteration_folder = f'main_folder_location/repetition {n_iterations}/'
     
     ensemble_sizes_list = [1,2,3,5,7,10,12,15]
 
