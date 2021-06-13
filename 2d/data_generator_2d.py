@@ -1,7 +1,8 @@
 
 """
-regular data 2d
-generate data for 2d landscapes
+data generator for 2d control landscapes
+
+this code is based on code written by kerwin and hughes and adapted to generate 2d data
 """
 import numpy as np
 import sys
