@@ -1,6 +1,8 @@
 """
 this script contains most of the necessary classes and defines test functions used
 in the later scripts for 1D function analysis 
+
+this is written predominantly by kerwin and hughes, and was only minimally modified
 """
 
 import numpy as np
@@ -192,15 +194,14 @@ class OutputLayer(tf.keras.layers.Layer):
         :param kwargs: key word argument
         """
         super(OutputLayer, self).__init__(**kwargs)
-# super just means same initialisation as the parent class 
+        # super just means same initialisation as the parent class 
     def build(self, input_shape):
-        # assuming this is constructing what the layer is
+
         """
         :param input_shape: shape of the input passed from the previous layer
         """
 
         # add new weights to the layer
-        # the method add_weight is a method of the parent class 
         # the glorot (also called xavier) initialisation helps stop variance blowing up
         self.kernel_mu = self.add_weight(shape=(input_shape[1], 1),
                                          initializer=tf.keras.initializers.glorot_normal(), trainable=True)
@@ -208,7 +209,6 @@ class OutputLayer(tf.keras.layers.Layer):
                                             initializer=tf.keras.initializers.glorot_normal(), trainable=True)
 
         # add bias neurons to the layer
-        # shape(1,) means a single number 
         self.bias_mu = self.add_weight(shape=(1,),
                                        initializer=tf.keras.initializers.glorot_normal(), trainable=True)
         self.bias_sigma = self.add_weight(shape=(1,),
@@ -222,11 +222,8 @@ class OutputLayer(tf.keras.layers.Layer):
         :param x:
         :return: a tensor containing the output of the hidden unit
         """
-# here K is the tensorflow keras backend 
+
         output_mu = K.dot(x, self.kernel_mu) + self.bias_mu
-        # this is basically the modified input that goes into the activation function
-        
-        # output_mu_activated = tf.keras.activations.tanh(output_mu)
         
         output_sigma = K.dot(x, self.kernel_sigma) + self.bias_sigma
         output_sigma_activated = tf.keras.activations.softplus(output_sigma) + 1e-6
@@ -305,8 +302,6 @@ def model_pathways_make_directories_regular(folder, ensemble_size, toymodel, mod
     else: 
         data_path = os.path.join(folder, "data")
         
- #   print("these are the two things that we want to join", data_path, toymodel)
-    # identified that toymodel has to be a string (as there's a corresponding folder for single_qubit in the data folder)
     data_path = os.path.join(data_path, toymodel)
     data_path = os.path.join(data_path, 'regular')
 
@@ -319,7 +314,6 @@ def model_pathways_make_directories_regular(folder, ensemble_size, toymodel, mod
     else:
         data_path = os.path.join(data_path, 'noiseless')
 
-#    results_path = os.path.join(os.pardir, f"{'results'}-{model_name}")
     if folder is None: 
         results_path = os.path.join(os.pardir, "results")
     else: 
@@ -329,7 +323,6 @@ def model_pathways_make_directories_regular(folder, ensemble_size, toymodel, mod
         except FileExistsError as e:
             print(e)
         results_path = os.path.join(results_path_1, "results")
-  #  results_path = os.path.join(os.pardir, "results")
     
     model_path = os.path.join(results_path, f'{model_name}-{n_samples}{noise_str}')
 
@@ -436,10 +429,7 @@ def data_pathways_make_directories_regular(folder, toymodel,noise):
     :param noise: the noise information
     :return: null
     '''
-  #  loc = "C:\Users\xious\Documents\Year 3\BSc Project\Quantifying accuracy"
-    
-  # changed the model pathways, the following code should work with regular_data modifications
-#    data_path = os.path.join(os.pardir, "data")
+
     if folder is None: 
         data_path = os.path.join(os.pardir, "data")
     else: 

@@ -1,5 +1,14 @@
 """
-deviation error with while loop
+This script is for finding the theta integral error/deviation error:
+    
+    theta_integral_error = (integral over theta range of 
+                            mod(deviation of predicted from true)/std)/(theta range) (or without std)
+    
+    where std is the standard deviation used to plot the confidence interval
+    
+    We approx. this integral to a sum since theta and the prediction is not
+    defined as a continuous function but rather 1000 discrete points, it's
+    a measure of the average deviation between the predicted landscape from the true one.
 """
 import numpy as np
 import sys
@@ -7,12 +16,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import shutil 
 sys.path.append('../')
-import library
+import library_1d
 import os
 
 # taking theta range from library module
-theta_min = library.theta_min
-theta_max = library.theta_max
+theta_min = library_1d.theta_min
+theta_max = library_1d.theta_max
 
 iterations = [1,2,3]
     
@@ -20,17 +29,13 @@ for n_iterations in iterations:
     sample_list = [10,20, 50, 100,200,300]
 
     for num in sample_list: 
-        loc_1 = f'C:/Users/xious/Documents/Year 3/BSc Project/Quantifying accuracy/single qubit/{num} samples/'    
+        loc_1 = f'main_folder_location/single qubit/{num} samples/'    
         
         ensemble_sizes_list = [1, 2]
         for model_num in ensemble_sizes_list:
             
             loc = loc_1 + f"repetition {n_iterations}/{model_num} models"
-      
-    # =============================================================================
-    #         loc = f'C:/Users/xious/Documents/Year 3/BSc Project/Quantifying accuracy/Leo noiseless week 4/repetition {n_iterations}/{model_num} models'   
-    # =============================================================================
-            
+   
             path_true = os.path.join(loc, "true_f.txt")
             path_pred = os.path.join(loc, 'predicted_f.txt')
             path_std = os.path.join(loc, 'std.txt')
