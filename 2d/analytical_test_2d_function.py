@@ -7,7 +7,6 @@ sys.path.append('../')
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-import library
 import two_dimensional_function as two_d
 
 # analytical functions 
