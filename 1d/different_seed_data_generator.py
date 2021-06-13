@@ -10,7 +10,7 @@ sys.path.append('../')
 import library
 import os
 
-location = 'C:/Users/xious/Documents/Year 3/BSc Project/Quantifying accuracy/'
+location = 'main_folder_location'
 
 n_iterations = 1
 while n_iterations <= 3:
@@ -53,7 +53,7 @@ while n_iterations <= 3:
     
         #create a toy model object with n_samples within our theta range
         tm = library.ToyModels(n_samples, theta_min, theta_max, seed=random)
-        # here seed is changed every repition
+        # here seed is changed every repetition
     
         if tm_type == 'cubic':
             x, y = tm.cubic(noise)
@@ -83,11 +83,6 @@ while n_iterations <= 3:
         # order them
         x_ordered = sorted(x)
         
- # moves data folder into iteration folder
-        # shutil.copy('../data',f'../iteration {n_iterations}/') 
-        # shutil.rmtree('../data') 
-        
-        # shutil.copy(sourcePath, destinationPath)
         path_theta = os.path.join(loc+"data", "theta_values.txt")
                 
         np.savetxt(path_theta, x_ordered)

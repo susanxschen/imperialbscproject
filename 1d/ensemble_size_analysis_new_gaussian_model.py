@@ -1,9 +1,9 @@
 """
-gaussian model in while loop - also puts results for different ensemble sizes inside
-repitition folders 
+the gaussian model in a while loop - also puts results for different ensemble sizes inside
+repetition folders 
+
 for loop within while loop
 """
-import shutil 
 import os
 import sys
 import numpy as np
@@ -22,7 +22,7 @@ from contextlib import redirect_stdout
 n_iterations = 1
 while n_iterations <= 3:
     
-    iteration_folder = f'C:/Users/xious/Documents/Year 3/BSc Project/Quantifying accuracy/repetition {n_iterations}/'
+    iteration_folder = f'main_folder_location/repetition {n_iterations}/'
     
     ensemble_sizes_list = [1,2,3,5,7,10,12,15]
 
