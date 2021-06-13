@@ -125,7 +125,6 @@ while n_iterations <= 1:
         
 # =============================================================================
 #         3d contour plot of the relative deviation
-#         tbh just a 3d representation of the above
 # =============================================================================
         fig3 = plt.figure()
         ax3 = plt.axes(projection='3d')
